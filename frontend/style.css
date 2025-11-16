@@ -7,40 +7,35 @@
 body {
   background-image: url("ewa/bg.png");
   position: relative;
-  z-index: 0;
-  /* background: linear-gradient(to bottom, #ffffff, #acc8c9); */
   background-color: #ffffff;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  margin: 0;
+  min-height: 100vh; /* ganti dari height fixed */
   display: flex;
   justify-content: center;
 }
 
-/* .background-bottom { */
-/* position: fixed; */
-/* bottom: 0; */
-/* left: 0; */
-/* margin-bottom: 0px; */
-/* width: 100%; */
-/* height: 760px; */
-/* background-image: url("bg-potrait.png"); */
-/* background-repeat: no-repeat; */
-/* background-position: center bottom; */
-/* background-size: cover; */
-/* z-index: -1; */
-/* pointer-events: none; */
-/* } */
-
 .grey-box {
-  background: rgba(0, 0, 0, 0.45);
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
-  border-radius: 18px;
-  padding: 18px;
-  box-shadow: 0 0 25px rgba(255, 45, 135, 0.25);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 28px 22px;
+  border: 1.8px solid rgba(255, 0, 143, 0.35);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(255, 0, 132, 0.25);
+  width: 100%;
+  max-width: 360px;
+  margin: auto;
+}
+
+.grey-box h1 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
 }
 
 /* INPUT BLACK */
@@ -50,7 +45,7 @@ body {
   border-radius: 10px;
   padding: 12px 14px;
   font-size: 14px;
-  color: #fff;
+  color: #bdbdbd;
   outline: none;
   width: 100%;
   text-align: center;
@@ -177,8 +172,8 @@ svg {
 .wrapper {
   width: 100%;
   flex-direction: column;
-  position: absolute;
-  top: 25px;
+  margin-top: 25px;
+  position: relative; /* lebih stabil */
 }
 
 .navbar {
@@ -294,4 +289,106 @@ svg {
   width: 144px;
   height: 216px;
   object-fit: contain;
+}
+
+.thank-wrapper {
+  position: relative;
+  width: 290px;
+  margin: 0 auto;
+}
+
+.thank-glow {
+  width: 100%;
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.thank-box {
+  position: relative;
+  z-index: 2;
+  padding: 25px 20px;
+  border-radius: 18px;
+  text-align: center;
+  font-family: "Orbitron", sans-serif;
+  background: linear-gradient(180deg, #ff62b0, #7a20ff);
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* SWEETALERT GLOW BOX */
+.swal-glow-box {
+  width: 260px;
+  margin: auto;
+  position: relative;
+}
+
+.swal-glow-box::before {
+  content: "";
+  position: absolute;
+  inset: -25px -30px;
+  border-radius: 30px;
+  background: radial-gradient(circle at top left, rgba(255, 0, 120, 0.5), transparent 60%), radial-gradient(circle at bottom right, rgba(120, 0, 255, 0.5), transparent 60%);
+  filter: blur(35px);
+  z-index: 0;
+}
+
+.swal-inner {
+  position: relative;
+  z-index: 2;
+  padding: 25px 20px;
+  border-radius: 18px;
+  text-align: center;
+  font-family: "Orbitron", sans-serif;
+  background: linear-gradient(180deg, #ff62b0, #7a20ff);
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.swal-inner .small-text {
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+/* THANK-YOU BOX P2 */
+.thank-glow-box {
+  width: 290px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.thank-glow-box::before {
+  content: "";
+  position: absolute;
+  inset: -30px -30px;
+  border-radius: 25px;
+  background: radial-gradient(circle at top left, rgba(255, 0, 120, 0.45), transparent 70%), radial-gradient(circle at bottom right, rgba(120, 0, 255, 0.45), transparent 70%);
+  filter: blur(35px);
+  z-index: 0;
+}
+
+.thank-inner {
+  position: relative;
+  z-index: 2;
+  padding: 25px 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ff62b0, #7a20ff);
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  color: white;
+}
+
+.thank-inner .big {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.thank-inner .username {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 10px 0;
 }

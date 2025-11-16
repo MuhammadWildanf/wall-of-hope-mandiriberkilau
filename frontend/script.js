@@ -16,44 +16,6 @@ document.getElementById("next").addEventListener("click", async (e) => {
     return;
   }
 
-  /* let badwords = [];
-  try {
-    const res = await fetch("/badwords");
-    badwords = await res.json();
-    console.log("Badwords:", badwords);
-  } catch (error) {
-    console.error("Gagal memuat data.json", error);
-  } */
-
-  function normalizeRepeatedChars(text) {
-    return text
-      .toLowerCase()
-      .replace(/(.)\1+/g, "$1$1") // huruf berulang 2x+
-      .replace(/[@4]/g, "a")
-      .replace(/[$5]/g, "s")
-      .replace(/[!1]/g, "i")
-      .replace(/[0]/g, "o")
-      .replace(/[3]/g, "e")
-      .replace(/[7]/g, "t")
-      .replace(/[9]/g, "g")
-      .replace(/[^a-z0-9\s]/g, "") // hapus simbol lain
-      .replace(/\s+/g, ""); // hapus semua spasi
-  }
-
-  let allText = `${name} ${comment}`.toLowerCase();
-  allText = normalizeRepeatedChars(allText);
-
-  // Cek apakah ada kata yang terlarang
-  /*  const foundBadword = badwords.some((word) => allText.includes(word));
-   if (foundBadword) {
-     Swal.fire({
-       icon: "warning",
-       title: "Perhatian",
-       text: "Input Anda mengandung kata yang tidak sesuai kebijakan. Mohon ubah sebelum melanjutkan.",
-     });
-     return;
-   } */
-
   isSubmitting = true;
   btnNext.disabled = true;
   btnNext.textContent = "Memproses...";
@@ -64,37 +26,33 @@ document.getElementById("next").addEventListener("click", async (e) => {
   Swal.fire({
     html: `
     <div style="
-      background-color: #ffff;
-      border-radius: 12px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      width: 260px;
+      padding: 25px 20px;
+      border-radius: 18px;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(180deg, #ff62b0, #7a20ff);
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+      position: relative;
+      box-shadow:
+        0 0 40px rgba(255, 0, 140, 0.5),
+        0 0 80px rgba(120, 0, 255, 0.4),
+        0 0 120px rgba(255, 0, 120, 0.4);
     ">
-      <div style="
-        background-color: #1c8263;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 10px;
-      ">
-        <i class="fa-solid fa-check" style="color: #fff; font-size: 14px;"></i>
-      </div>
-      <div style="font-size: 1.5rem; font-weight: bold;">
-        Berhasil
-      </div>
+      <div>Thank You</div>
+      <div style="margin-top: 8px;">For Your Participation!</div>
     </div>
   `,
-    showConfirmButton: false,
     background: "transparent",
-    timer: 1500,
+    showConfirmButton: false,
+    timer: 1600,
     customClass: {
       popup: "no-border-shadow",
-    },
+    }
   });
+
 
   try {
     await submit(name, char, comment);
@@ -108,8 +66,8 @@ document.getElementById("next").addEventListener("click", async (e) => {
 
 async function submit(name, char, comment) {
   try {
-    const response = await fetch("https://backtoschool90s-app-dev.vercel.app/submit-form", {
-      // const response = await fetch("http://localhost:3002/submit-form", {
+    // const response = await fetch("https://backtoschool90s-app-dev.vercel.app/submit-form", {
+    const response = await fetch("http://localhost:3000/submit-form", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -160,90 +118,11 @@ function showThankYouScreen(data) {
   p2.style.alignItems = "center";
 }
 
-// const svg = document.getElementById("wave-container");
-// let width = window.innerWidth;
-// let height = window.innerHeight;
-// const numberOfLines = 120; // Jumlah garis
-// const waveAmplitude = 20; // Amplitudo gelombang
-// const waveLength = 120; // Panjang gelombang
-// const speed = 0.01; // Kecepatan animasi
-// let time = 0;
-
-// // Fungsi untuk memperbarui ukuran SVG
-// function resize() {
-//   width = window.innerWidth;
-//   height = window.innerHeight;
-//   svg.setAttribute("width", width);
-//   svg.setAttribute("height", height);
-//   svg.innerHTML = ""; // Hapus garis lama agar tidak ada bug saat ukuran berubah
-//   createWaves(); // Buat ulang garis
-// }
-
-// // Membuat garis gelombang
-// function createWaveLine(yOffset) {
-//   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-//   path.setAttribute("stroke", "black");
-//   path.setAttribute("stroke-width", "1");
-//   path.setAttribute("fill", "none");
-//   svg.appendChild(path);
-//   return { path, yOffset };
-// }
-
-// let waves = [];
-// function createWaves() {
-//   waves = Array.from({ length: numberOfLines }, (_, i) =>
-//     createWaveLine(i * 30)
-//   );
-// }
-
-// // Animasi gelombang
-// function animateWave() {
-//   time += speed;
-//   waves.forEach((wave, index) => {
-//     const points = [];
-//     for (let x = 0; x <= width; x += 20) {
-//       const y =
-//         wave.yOffset + Math.sin(x / waveLength + time + index) * waveAmplitude;
-//       points.push(`${x},${y}`);
-//     }
-//     wave.path.setAttribute("d", `M${points.join(" L")}`);
-//   });
-//   requestAnimationFrame(animateWave);
-// }
-
-// // Inisialisasi
-// resize();
-// animateWave();
-// window.addEventListener("resize", resize); // Perbarui ukuran saat jendela berubah
-
-// async function updateData(key, name, email, char, comment) {
-//     try {
-//         const response = await fetch('https://imajiwa-x-argo-visual.vercel.app/update-form', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({ key, name, email, char, comment })
-//         });
-
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-
-//         const responseData = await response.json();
-//         console.log('Response Data:', responseData.msg);
-
-//     } catch (error) {
-//         console.error('Error:', error);
-//         console.log('Error submitting data');
-//     }
-// }
-
 const wrapper = document.querySelector(".carousel-wrapper");
 const carousel = document.querySelector(".carousel");
 const firstCardWidth = carousel.querySelector(".card").offsetWidth;
-// const arrowBtns = document.querySelectorAll(".carousel-wrapper i");
-const arrowBtns = document.querySelectorAll(".carousel-wrapper .arrow-btn");
+const arrowBtns = document.querySelectorAll(".carousel-wrapper i");
+// const arrowBtns = document.querySelectorAll(".carousel-wrapper .arrow-btn");
 const carouselChildrens = [...carousel.children];
 
 let char = 1;

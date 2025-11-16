@@ -25,7 +25,7 @@
 
 <body>
   <div class="wrapper d-flex align-items-center">
-    <div class="container mb-5">
+    <div class="container mb-3">
       <div class="row px-4 justify-content-center" id="hero-container">
         <img src="ewa/logo.png" alt="Logo" class="img-fluid " id="hero" />
       </div>
@@ -37,12 +37,12 @@
             <div class="grey-box mb-3">
               <h1>DIGITAL GUESTBOOK</h1>
               <div class="form-group mb-3">
-                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Masukkan Nama"
+                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="YOUR NAME"
                   maxlength="15">
               </div>
               <div class="form-group mb-3">
                 <textarea class="form-control" name="comment" id="comment" rows="3" maxlength="80"
-                  placeholder="Tulis Testimoni anda di sini "></textarea>
+                  placeholder="MESSAGE "></textarea>
               </div>
               <div class="d-flex justify-content-center">
                 <div class="tulisan-karakter">
@@ -75,18 +75,23 @@
             </div>
 
             <div class="button d-flex justify-content-center">
-              <button id="next" class="custom-btn">MASUK</button>
+              <button id="next" class="custom-btn">SUBMIT</button>
             </div>
           </div>
         </form>
       </div>
-      <div class="p2" id="p2" style="display: none;">
+      <div class="p2" id="p2" style="display:none;">
+
         <div id="char-container"></div>
-        <div class="card text-light p-4 text-center" id="thank" style="background-color: #1c8263; border-radius: 20px;">
-          <h1 class="card-title mb-0" style="font-size: 25px;">Terimakasih</h1>
-          <h2 id="user-name" class="my-2" style="font-size: 30px; font-weight: bold;"></h2>
-          <h1 class="card-title mt-0" style="font-size: 25px;">Atas Partisipasinya!</h1>
+
+        <div class="thank-glow-box mt-3">
+          <div class="thank-inner">
+            <div class="big">Thank You</div>
+            <div id="user-name" class="username"></div>
+            <div class="big">For Your Participation!</div>
+          </div>
         </div>
+
       </div>
     </div>
     <div class="background-bottom"></div>
