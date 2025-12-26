@@ -17,10 +17,14 @@
   font-size: 24px;
   color: #ffffff;
   text-align: center;
-  display: block; /* penting agar bisa full width */
-  max-width: 220px; /* supaya auto jadi 2 baris */
-  margin: 0 auto; /* center secara horizontal */
-  line-height: 1.1; /* mirip Figma */
+  display: block;
+  /* penting agar bisa full width */
+  max-width: 220px;
+  /* supaya auto jadi 2 baris */
+  margin: 0 auto;
+  /* center secara horizontal */
+  line-height: 1.1;
+  /* mirip Figma */
 }
 
 body {
@@ -29,14 +33,16 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  min-height: 100vh; /* ganti dari height fixed */
+  min-height: 100vh;
+  /* ganti dari height fixed */
   display: flex;
   justify-content: center;
   /* font-family: "Tomarik", sans-serif; */
 }
 
 .grey-box {
-  position: relative; /* wajib */
+  position: relative;
+  /* wajib */
   background-color: #ffffff;
   border-radius: 44px;
   padding: 28px 22px;
@@ -46,17 +52,19 @@ body {
   width: 100%;
   max-width: 360px;
   margin: auto;
-  overflow: hidden; /* agar inner border tidak keluar */
+  overflow: hidden;
+  /* agar inner border tidak keluar */
 }
 
 /* .grey-box::before { */
-  /* content: ""; */
-  /* position: absolute; */
-  /* inset: 0; */
-  border: 9px solid #000000; stroke inside warna hitam
-  border-radius: 44px; samakan dengan box
-  /* pointer-events: none; */
-  /* box-sizing: border-box; */
+/* content: ""; */
+/* position: absolute; */
+/* inset: 0; */
+border: 9px solid #000000;
+stroke inside warna hitam border-radius: 44px;
+samakan dengan box
+/* pointer-events: none; */
+/* box-sizing: border-box; */
 /* } */
 
 .grey-box h1 {
@@ -73,7 +81,8 @@ body {
   position: relative;
   display: block;
   width: 100%;
-  padding: 5px; /* WAJIB supaya stroke terlihat */
+  padding: 5px;
+  /* WAJIB supaya stroke terlihat */
   border-radius: 20px;
 }
 
@@ -96,14 +105,16 @@ body {
 /* Saat mengetik (focus) → hilangkan inset shadow gelap */
 .form-control:focus {
   box-shadow: 0 0 0 2px rgb(255, 255, 255);
-  background: rgba(255, 255, 255, 0.2); /* lebih terang */
+  background: rgba(255, 255, 255, 0.2);
+  /* lebih terang */
   outline: none;
   color: #fff;
 }
 
 .tulisan-karakter .text-white {
   font-family: "Tomarik", sans-serif;
-  font-weight: 500; /* semibold */
+  font-weight: 500;
+  /* semibold */
   color: #000;
   letter-spacing: 1px;
   text-align: center;
@@ -160,7 +171,7 @@ svg {
   background-color: #339E7D;
   border-radius: 50px;
   border: none;
-/* diganti opensans   */
+  /* diganti opensans   */
   font-family: "opensans", sans-serif;
   font-weight: 700;
   font-size: 17px;
@@ -168,25 +179,26 @@ svg {
   letter-spacing: 1px;
 
   box-shadow: 0 0 22px rgba(255, 45, 139, 0.35);
-  overflow: visible; /* penting agar OUTSIDE stroke kelihatan */
+  overflow: visible;
+  /* penting agar OUTSIDE stroke kelihatan */
 }
 
 /* .custom-btn::before { */
-  /* content: ""; */
-  /* position: absolute; */
-  /* inset: 0; */
-  /* border: 5px solid #000000;  */
-  /* border-radius: 50px;  */
-  /* pointer-events: none; */
-  /* box-sizing: border-box; */
+/* content: ""; */
+/* position: absolute; */
+/* inset: 0; */
+/* border: 5px solid #000000;  */
+/* border-radius: 50px;  */
+/* pointer-events: none; */
+/* box-sizing: border-box; */
 /* } */
 
 /* .custom-btn span { */
-  /* color: #fff; */
-  /* font-weight: 800; */
-  /* letter-spacing: 1px; */
-  /* -webkit-text-stroke: 4px #000;  */
-  /* paint-order: stroke fill; */
+/* color: #fff; */
+/* font-weight: 800; */
+/* letter-spacing: 1px; */
+/* -webkit-text-stroke: 4px #000;  */
+/* paint-order: stroke fill; */
 /* } */
 
 #hero {
@@ -239,7 +251,8 @@ svg {
   width: 100%;
   flex-direction: column;
   margin-top: 25px;
-  position: relative; /* lebih stabil */
+  position: relative;
+  /* lebih stabil */
 }
 
 .navbar {
@@ -272,6 +285,7 @@ svg {
   max-width: 300px;
   width: 100%;
   position: relative;
+  overflow: visible;
 }
 
 .carousel-wrapper i {
@@ -283,9 +297,12 @@ svg {
   position: absolute;
   text-align: center;
   line-height: 50px;
-  background: transparent; /* transparan */
-  border: 2px solid #000; /* warna pinggir */
-  color: #000; /* warna ikon panah */
+  background: transparent;
+  /* transparan */
+  border: 2px solid #000;
+  /* warna pinggir */
+  color: #000;
+  /* warna ikon panah */
   border-radius: 50%;
   transform: translateY(-50%);
   transition: transform 0.1s linear, background 0.2s;
@@ -305,16 +322,25 @@ svg {
 }
 
 .carousel-wrapper .carousel {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  gap: 16px;
   scroll-behavior: smooth;
-  scrollbar-width: none;
+
+  padding: 20px 40px;
   margin: 0;
-  padding: 0;
+
+  scrollbar-width: none;
+  overflow-x: auto;
+  overflow-y: visible;
+  /* ⬅️ BIAR SCALE KE ATAS KELUAR */
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .carousel::-webkit-scrollbar {
@@ -342,13 +368,66 @@ svg {
 }
 
 .carousel .card {
-  scroll-snap-align: start;
-  list-style: none;
-  cursor: pointer;
-  padding-bottom: 15px;
-  border-radius: 8px;
-  background: none;
-  border: none;
+  flex: 0 0 100px;
+  /* ukuran slot */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  scroll-snap-align: center;
+
+  opacity: 0.35;
+  transform: scale(0.8);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+   background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.carousel .card.active {
+  opacity: 1;
+  transform: scale(1.15);
+  z-index: 5;
+}
+
+.carousel .card .img {
+  padding: 10px;
+  border-radius: 20px;
+  background: transparent;
+}
+
+.carousel img {
+  width: 80px;
+  height: auto;
+  pointer-events: none;
+}
+
+/* .carousel .card.active .img {
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+} */
+
+
+.carousel::before,
+.carousel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.carousel::before {
+  left: 0;
+  background: linear-gradient(to right, #fff 60%, transparent);
+}
+
+.carousel::after {
+  right: 0;
+  background: linear-gradient(to left, #fff 60%, transparent);
 }
 
 .card .img img {
@@ -421,7 +500,8 @@ svg {
 /* THANK-YOU BOX P2 — FIX (Mirip PNG Glow) */
 .thank-glow-box {
   width: 320px;
-  margin: 40px auto 0 auto; /* kasih jarak dari logo */
+  margin: 40px auto 0 auto;
+  /* kasih jarak dari logo */
   position: relative;
 }
 
@@ -431,7 +511,7 @@ svg {
   inset: -80px -70px;
   border-radius: 35px;
   background: radial-gradient(circle at top left, rgba(255, 40, 150, 0.55), transparent 65%), radial-gradient(circle at bottom right, rgba(90, 0, 255, 0.55), transparent 65%);
-  filter: blur(70px); 
+  filter: blur(70px);
   z-index: 0;
 }
 

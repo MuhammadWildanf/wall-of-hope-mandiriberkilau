@@ -124,7 +124,6 @@ const wrapper = document.querySelector(".carousel-wrapper");
 const carousel = document.querySelector(".carousel");
 const firstCardWidth = carousel.querySelector(".card").offsetWidth;
 const arrowBtns = document.querySelectorAll(".carousel-wrapper i");
-// const arrowBtns = document.querySelectorAll(".carousel-wrapper .arrow-btn");
 const carouselChildrens = [...carousel.children];
 
 let char = 1;
@@ -193,6 +192,7 @@ const dragStop = () => {
   if (isDragging) updateChar();
   isDragging = false;
   carousel.classList.remove("dragging");
+  setActiveCard();
 };
 
 const infiniteScroll = () => {
@@ -215,5 +215,35 @@ const infiniteScroll = () => {
 carousel.addEventListener("mousedown", dragStart);
 carousel.addEventListener("mousemove", dragging);
 document.addEventListener("mouseup", dragStop);
-carousel.addEventListener("scroll", infiniteScroll);
+carousel.addEventListener("scroll", () => {
+  infiniteScroll();
+  setActiveCard();
+});
 wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+
+
+const setActiveCard = () => {
+  const cards = carousel.querySelectorAll(".card");
+  const carouselRect = carousel.getBoundingClientRect();
+  const centerX = carouselRect.left + carouselRect.width / 2;
+
+  let closest = null;
+  let minDistance = Infinity;
+
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const distance = Math.abs(centerX - cardCenter);
+
+    if (distance < minDistance) {
+      minDistance = distance;
+      closest = card;
+    }
+  });
+
+  cards.forEach(card => card.classList.remove("active"));
+  if (closest) closest.classList.add("active");
+};
+
+
+setTimeout(setActiveCard, 100);
