@@ -17,10 +17,14 @@
   font-size: 24px;
   color: #ffffff;
   text-align: center;
-  display: block; /* penting agar bisa full width */
-  max-width: 220px; /* supaya auto jadi 2 baris */
-  margin: 0 auto; /* center secara horizontal */
-  line-height: 1.1; /* mirip Figma */
+  display: block;
+  /* penting agar bisa full width */
+  max-width: 220px;
+  /* supaya auto jadi 2 baris */
+  margin: 0 auto;
+  /* center secara horizontal */
+  line-height: 1.1;
+  /* mirip Figma */
 }
 
 body {
@@ -29,14 +33,16 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  min-height: 100vh; /* ganti dari height fixed */
+  min-height: 100vh;
+  /* ganti dari height fixed */
   display: flex;
   justify-content: center;
   /* font-family: "Tomarik", sans-serif; */
 }
 
 .grey-box {
-  position: relative; /* wajib */
+  position: relative;
+  /* wajib */
   background-color: #ffffff;
   border-radius: 44px;
   padding: 28px 22px;
@@ -46,17 +52,19 @@ body {
   width: 100%;
   max-width: 360px;
   margin: auto;
-  overflow: hidden; /* agar inner border tidak keluar */
+  overflow: hidden;
+  /* agar inner border tidak keluar */
 }
 
 /* .grey-box::before { */
-  /* content: ""; */
-  /* position: absolute; */
-  /* inset: 0; */
-  border: 9px solid #000000; stroke inside warna hitam
-  border-radius: 44px; samakan dengan box
-  /* pointer-events: none; */
-  /* box-sizing: border-box; */
+/* content: ""; */
+/* position: absolute; */
+/* inset: 0; */
+border: 9px solid #000000;
+stroke inside warna hitam border-radius: 44px;
+samakan dengan box
+/* pointer-events: none; */
+/* box-sizing: border-box; */
 /* } */
 
 .grey-box h1 {
@@ -73,7 +81,8 @@ body {
   position: relative;
   display: block;
   width: 100%;
-  padding: 5px; /* WAJIB supaya stroke terlihat */
+  padding: 5px;
+  /* WAJIB supaya stroke terlihat */
   border-radius: 20px;
 }
 
@@ -96,14 +105,16 @@ body {
 /* Saat mengetik (focus) → hilangkan inset shadow gelap */
 .form-control:focus {
   box-shadow: 0 0 0 2px rgb(255, 255, 255);
-  background: rgba(255, 255, 255, 0.2); /* lebih terang */
+  background: rgba(255, 255, 255, 0.2);
+  /* lebih terang */
   outline: none;
   color: #fff;
 }
 
 .tulisan-karakter .text-white {
   font-family: "Tomarik", sans-serif;
-  font-weight: 500; /* semibold */
+  font-weight: 500;
+  /* semibold */
   color: #000;
   letter-spacing: 1px;
   text-align: center;
@@ -160,7 +171,7 @@ svg {
   background-color: #339E7D;
   border-radius: 50px;
   border: none;
-/* diganti opensans   */
+  /* diganti opensans   */
   font-family: "opensans", sans-serif;
   font-weight: 700;
   font-size: 17px;
@@ -168,25 +179,26 @@ svg {
   letter-spacing: 1px;
 
   box-shadow: 0 0 22px rgba(255, 45, 139, 0.35);
-  overflow: visible; /* penting agar OUTSIDE stroke kelihatan */
+  overflow: visible;
+  /* penting agar OUTSIDE stroke kelihatan */
 }
 
 /* .custom-btn::before { */
-  /* content: ""; */
-  /* position: absolute; */
-  /* inset: 0; */
-  /* border: 5px solid #000000;  */
-  /* border-radius: 50px;  */
-  /* pointer-events: none; */
-  /* box-sizing: border-box; */
+/* content: ""; */
+/* position: absolute; */
+/* inset: 0; */
+/* border: 5px solid #000000;  */
+/* border-radius: 50px;  */
+/* pointer-events: none; */
+/* box-sizing: border-box; */
 /* } */
 
 /* .custom-btn span { */
-  /* color: #fff; */
-  /* font-weight: 800; */
-  /* letter-spacing: 1px; */
-  /* -webkit-text-stroke: 4px #000;  */
-  /* paint-order: stroke fill; */
+/* color: #fff; */
+/* font-weight: 800; */
+/* letter-spacing: 1px; */
+/* -webkit-text-stroke: 4px #000;  */
+/* paint-order: stroke fill; */
 /* } */
 
 #hero {
@@ -239,7 +251,8 @@ svg {
   width: 100%;
   flex-direction: column;
   margin-top: 25px;
-  position: relative; /* lebih stabil */
+  position: relative;
+  /* lebih stabil */
 }
 
 .navbar {
@@ -421,6 +434,7 @@ svg {
 }
 
 
+
 .card .img img {
   width: 144px;
   height: 216px;
@@ -491,7 +505,8 @@ svg {
 /* THANK-YOU BOX P2 — FIX (Mirip PNG Glow) */
 .thank-glow-box {
   width: 320px;
-  margin: 40px auto 0 auto; /* kasih jarak dari logo */
+  margin: 40px auto 0 auto;
+  /* kasih jarak dari logo */
   position: relative;
 }
 
@@ -501,7 +516,7 @@ svg {
   inset: -80px -70px;
   border-radius: 35px;
   background: radial-gradient(circle at top left, rgba(255, 40, 150, 0.55), transparent 65%), radial-gradient(circle at bottom right, rgba(90, 0, 255, 0.55), transparent 65%);
-  filter: blur(70px); 
+  filter: blur(70px);
   z-index: 0;
 }
 
