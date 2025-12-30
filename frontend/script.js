@@ -26,6 +26,108 @@ btnNext.addEventListener("click", async (e) => {
     return;
   }
 
+  let badwords = [];
+  try {
+    const res = await fetch("/badwords");
+    badwords = await res.json();
+    console.log("Badwords:", badwords);
+  } catch (error) {
+    console.error("Gagal memuat data.json", error);
+  }
+
+
+  function normalize(text) {
+    return text
+      .toLowerCase()
+      .replace(/(.)\1+/g, "$1$1") // huruf berulang 2x+
+      .replace(/[@4]/g, "a")
+      .replace(/[$5]/g, "s")
+      .replace(/[!1]/g, "i")
+      .replace(/[0]/g, "o")
+      .replace(/[3]/g, "e")
+      .replace(/[7]/g, "t")
+      .replace(/[9]/g, "g")
+      .replace(/[^a-z0-9\s]/g, "") // hapus simbol lain
+      .replace(/\s+/g, " "); // hapus semua spasi
+  }
+
+  const wordsName = normalize(name).split(" ");
+  const wordsComment = normalize(comment).split(" ");
+
+  function stripRepeatedTail(word) {
+    return word
+      .replace(/(.)\1{2,}/g, "$1") // semua spam
+      .replace(/[^a-z]+$/, "");   // hapus sampah belakang
+  }
+
+  const WHITELIST = [
+    "maidi",        // walikota / pemilik acara
+    "madiun",
+  ];
+
+  function isSimilar(word, bad) {
+    if (WHITELIST.includes(word)) return false;
+    word = stripRepeatedTail(word);
+
+    // exact
+    if (word === bad) return true;
+
+    // prefix: jancoklkk → jancok
+    if (word.startsWith(bad)) return true;
+
+    // panjang beda terlalu jauh? stop
+    if (Math.abs(word.length - bad.length) > 2) return false;
+
+    // typo & transposisi
+    let diffs = [];
+    const len = Math.min(word.length, bad.length);
+
+    for (let i = 0; i < len; i++) {
+      if (word[i] !== bad[i]) diffs.push(i);
+    }
+
+    // 1 typo
+    if (diffs.length === 1) return true;
+
+    // huruf ketukar
+    if (word.length >= 5 && bad.length >= 5) {
+      if (diffs.length === 1) return true;
+
+      if (
+        diffs.length === 2 &&
+        word[diffs[0]] === bad[diffs[1]] &&
+        word[diffs[1]] === bad[diffs[0]]
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  const foundInName = badwords.some(bad =>
+    wordsName.some(w =>
+      w.length >= 4 &&
+      bad.length >= 4 &&          // ⬅️ penting
+      !WHITELIST.includes(w) &&
+      w.startsWith(bad)
+    )
+  );
+
+  // COMMENT → full strict
+  const foundInComment = badwords.some(bad =>
+    wordsComment.some(w => isSimilar(w, bad))
+  );
+
+  if (foundInName || foundInComment) {
+    Swal.fire({
+      icon: "warning",
+      title: "Perhatian",
+      text: "Input Anda mengandung kata yang tidak sesuai kebijakan.",
+    });
+    return;
+  }
+
   console.log("💾 SUBMIT DATA:", { name, char, comment });
 
   try {
@@ -57,8 +159,8 @@ btnNext.addEventListener("click", async (e) => {
    SUBMIT API
 ================================ */
 async function submitForm(payload) {
-  const res = await fetch("https://wall-of-hope-mandiriberkilau.vercel.app/submit-form", {
-    // const res = await fetch("http://localhost:3002/submit-form", {
+  // const res = await fetch("https://wall-of-hope-mandiriberkilau.vercel.app/submit-form", {
+  const res = await fetch("http://localhost:3003/submit-form", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
