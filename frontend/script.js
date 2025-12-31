@@ -26,107 +26,106 @@ btnNext.addEventListener("click", async (e) => {
     return;
   }
 
-  let badwords = [];
-  try {
-    const res = await fetch("/badwords");
-    badwords = await res.json();
-    console.log("Badwords:", badwords);
-  } catch (error) {
-    console.error("Gagal memuat data.json", error);
-  }
+  // let badwords = [];
+  // try {
+  //   const res = await fetch("/badwords");
+  //   badwords = await res.json();
+  //   console.log("Badwords:", badwords);
+  // } catch (error) {
+  //   console.error("Gagal memuat data.json", error);
+  // }
 
+  // function normalize(text) {
+  //   return text
+  //     .toLowerCase()
+  //     .replace(/(.)\1+/g, "$1$1") // huruf berulang 2x+
+  //     .replace(/[@4]/g, "a")
+  //     .replace(/[$5]/g, "s")
+  //     .replace(/[!1]/g, "i")
+  //     .replace(/[0]/g, "o")
+  //     .replace(/[3]/g, "e")
+  //     .replace(/[7]/g, "t")
+  //     .replace(/[9]/g, "g")
+  //     .replace(/[^a-z0-9\s]/g, "") // hapus simbol lain
+  //     .replace(/\s+/g, " "); // hapus semua spasi
+  // }
 
-  function normalize(text) {
-    return text
-      .toLowerCase()
-      .replace(/(.)\1+/g, "$1$1") // huruf berulang 2x+
-      .replace(/[@4]/g, "a")
-      .replace(/[$5]/g, "s")
-      .replace(/[!1]/g, "i")
-      .replace(/[0]/g, "o")
-      .replace(/[3]/g, "e")
-      .replace(/[7]/g, "t")
-      .replace(/[9]/g, "g")
-      .replace(/[^a-z0-9\s]/g, "") // hapus simbol lain
-      .replace(/\s+/g, " "); // hapus semua spasi
-  }
+  // const wordsName = normalize(name).split(" ");
+  // const wordsComment = normalize(comment).split(" ");
 
-  const wordsName = normalize(name).split(" ");
-  const wordsComment = normalize(comment).split(" ");
+  // function stripRepeatedTail(word) {
+  //   return word
+  //     .replace(/(.)\1{2,}/g, "$1") // semua spam
+  //     .replace(/[^a-z]+$/, "");   // hapus sampah belakang
+  // }
 
-  function stripRepeatedTail(word) {
-    return word
-      .replace(/(.)\1{2,}/g, "$1") // semua spam
-      .replace(/[^a-z]+$/, "");   // hapus sampah belakang
-  }
+  // const WHITELIST = [
+  //   "maidi",        // walikota / pemilik acara
+  //   "madiun",
+  // ];
 
-  const WHITELIST = [
-    "maidi",        // walikota / pemilik acara
-    "madiun",
-  ];
+  // function isSimilar(word, bad) {
+  //   if (WHITELIST.includes(word)) return false;
+  //   word = stripRepeatedTail(word);
 
-  function isSimilar(word, bad) {
-    if (WHITELIST.includes(word)) return false;
-    word = stripRepeatedTail(word);
+  //   // exact
+  //   if (word === bad) return true;
 
-    // exact
-    if (word === bad) return true;
+  //   // prefix: jancoklkk → jancok
+  //   if (word.startsWith(bad)) return true;
 
-    // prefix: jancoklkk → jancok
-    if (word.startsWith(bad)) return true;
+  //   // panjang beda terlalu jauh? stop
+  //   if (Math.abs(word.length - bad.length) > 2) return false;
 
-    // panjang beda terlalu jauh? stop
-    if (Math.abs(word.length - bad.length) > 2) return false;
+  //   // typo & transposisi
+  //   let diffs = [];
+  //   const len = Math.min(word.length, bad.length);
 
-    // typo & transposisi
-    let diffs = [];
-    const len = Math.min(word.length, bad.length);
+  //   for (let i = 0; i < len; i++) {
+  //     if (word[i] !== bad[i]) diffs.push(i);
+  //   }
 
-    for (let i = 0; i < len; i++) {
-      if (word[i] !== bad[i]) diffs.push(i);
-    }
+  //   // 1 typo
+  //   if (diffs.length === 1) return true;
 
-    // 1 typo
-    if (diffs.length === 1) return true;
+  //   // huruf ketukar
+  //   if (word.length >= 5 && bad.length >= 5) {
+  //     if (diffs.length === 1) return true;
 
-    // huruf ketukar
-    if (word.length >= 5 && bad.length >= 5) {
-      if (diffs.length === 1) return true;
+  //     if (
+  //       diffs.length === 2 &&
+  //       word[diffs[0]] === bad[diffs[1]] &&
+  //       word[diffs[1]] === bad[diffs[0]]
+  //     ) {
+  //       return true;
+  //     }
+  //   }
 
-      if (
-        diffs.length === 2 &&
-        word[diffs[0]] === bad[diffs[1]] &&
-        word[diffs[1]] === bad[diffs[0]]
-      ) {
-        return true;
-      }
-    }
+  //   return false;
+  // }
 
-    return false;
-  }
+  // const foundInName = badwords.some(bad =>
+  //   wordsName.some(w =>
+  //     w.length >= 4 &&
+  //     bad.length >= 4 &&          // ⬅️ penting
+  //     !WHITELIST.includes(w) &&
+  //     w.startsWith(bad)
+  //   )
+  // );
 
-  const foundInName = badwords.some(bad =>
-    wordsName.some(w =>
-      w.length >= 4 &&
-      bad.length >= 4 &&          // ⬅️ penting
-      !WHITELIST.includes(w) &&
-      w.startsWith(bad)
-    )
-  );
+  // // COMMENT → full strict
+  // const foundInComment = badwords.some(bad =>
+  //   wordsComment.some(w => isSimilar(w, bad))
+  // );
 
-  // COMMENT → full strict
-  const foundInComment = badwords.some(bad =>
-    wordsComment.some(w => isSimilar(w, bad))
-  );
-
-  if (foundInName || foundInComment) {
-    Swal.fire({
-      icon: "warning",
-      title: "Perhatian",
-      text: "Input Anda mengandung kata yang tidak sesuai kebijakan.",
-    });
-    return;
-  }
+  // if (foundInName || foundInComment) {
+  //   Swal.fire({
+  //     icon: "warning",
+  //     title: "Perhatian",
+  //     text: "Input Anda mengandung kata yang tidak sesuai kebijakan.",
+  //   });
+  //   return;
+  // }
 
   console.log("💾 SUBMIT DATA:", { name, char, comment });
 
@@ -159,12 +158,15 @@ btnNext.addEventListener("click", async (e) => {
    SUBMIT API
 ================================ */
 async function submitForm(payload) {
-  const res = await fetch("https://wall-of-hope-mandiriberkilau.vercel.app/submit-form", {
-    // const res = await fetch("http://localhost:3003/submit-form", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+  const res = await fetch(
+    "https://wall-of-hope-mandiriberkilau.vercel.app/submit-form",
+    {
+      // const res = await fetch("http://localhost:3003/submit-form", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }
+  );
 
   if (!res.ok) throw new Error(await res.text());
   return res.json();
@@ -222,29 +224,33 @@ const cardWidth = originalCards[0].offsetWidth;
 const stride = cardWidth + gap; // The actual distance from one card start to the next
 
 // Clone for infinite scroll (clone all to be safe and smooth)
-originalCards.forEach(card => {
+originalCards.forEach((card) => {
   const cloneStart = card.cloneNode(true);
   const cloneEnd = card.cloneNode(true);
-  cloneStart.classList.add('clone');
-  cloneEnd.classList.add('clone');
+  cloneStart.classList.add("clone");
+  cloneEnd.classList.add("clone");
 });
 
 // We need enough buffer. simpler approach: duplicate the whole set at start and end.
-originalCards.forEach(card => carousel.insertAdjacentHTML("afterbegin", card.outerHTML));
-originalCards.forEach(card => carousel.insertAdjacentHTML("beforeend", card.outerHTML));
+originalCards.forEach((card) =>
+  carousel.insertAdjacentHTML("afterbegin", card.outerHTML)
+);
+originalCards.forEach((card) =>
+  carousel.insertAdjacentHTML("beforeend", card.outerHTML)
+);
 
 // New card list (clones + originals)
 const allCards = carousel.querySelectorAll(".card");
 
 // Rebuild safely to ensure order is [Set][Set (Real)][Set]
 carousel.innerHTML = "";
-originalCards.forEach(card => carousel.appendChild(card.cloneNode(true))); // Set 1 (Buffer Left)
-originalCards.forEach(card => {
+originalCards.forEach((card) => carousel.appendChild(card.cloneNode(true))); // Set 1 (Buffer Left)
+originalCards.forEach((card) => {
   const el = card.cloneNode(true);
-  el.classList.add('original-ref'); // Mark real ones
+  el.classList.add("original-ref"); // Mark real ones
   carousel.appendChild(el);
 }); // Set 2 (Real Middle)
-originalCards.forEach(card => carousel.appendChild(card.cloneNode(true))); // Set 3 (Buffer Right)
+originalCards.forEach((card) => carousel.appendChild(card.cloneNode(true))); // Set 3 (Buffer Right)
 
 // Update selector
 let cards = carousel.querySelectorAll(".card");
@@ -264,13 +270,13 @@ const infiniteScroll = () => {
   // If at the very start (left buffer end), jump to middle
   if (carousel.scrollLeft <= 0) {
     carousel.classList.add("no-transition");
-    carousel.scrollLeft = carousel.scrollLeft + (totalOriginal * stride);
+    carousel.scrollLeft = carousel.scrollLeft + totalOriginal * stride;
     carousel.classList.remove("no-transition");
   }
   // If at the very end (right buffer start), jump to middle
-  else if (carousel.scrollLeft >= (carousel.scrollWidth - carousel.offsetWidth)) {
+  else if (carousel.scrollLeft >= carousel.scrollWidth - carousel.offsetWidth) {
     carousel.classList.add("no-transition");
-    carousel.scrollLeft = carousel.scrollLeft - (totalOriginal * stride);
+    carousel.scrollLeft = carousel.scrollLeft - totalOriginal * stride;
     carousel.classList.remove("no-transition");
   }
 
@@ -282,10 +288,10 @@ const infiniteScroll = () => {
 
   // Adjusted Scroll = scrollLeft basically tracks the left edge of the content.
   // The first card starts at `paddingLeft`.
-  // So: roundedIndex = (scrollLeft) / stride. 
+  // So: roundedIndex = (scrollLeft) / stride.
   // But wait, the snap alignment centers the card.
 
-  const centerPos = carousel.scrollLeft + (carousel.offsetWidth / 2);
+  const centerPos = carousel.scrollLeft + carousel.offsetWidth / 2;
   // We offset by paddingLeft to find "distance into the card track"
   const trackPos = centerPos - paddingLeft;
   // Each card occupies 'stride' space, centered at stride/2? No.
@@ -309,17 +315,16 @@ const infiniteScroll = () => {
     }
 
     // Visual Update: Highlight ALL Match Clones
-    // This prevents flickering when the scroll position resets (jumps) 
+    // This prevents flickering when the scroll position resets (jumps)
     // because the 'target' clone at the new position will ALREADY be active.
-    cards.forEach(c => {
+    cards.forEach((c) => {
       c.classList.remove("active");
       if (parseInt(c.dataset.char) === currentChar) {
         c.classList.add("active");
       }
     });
   }
-}
-
+};
 
 carousel.addEventListener("scroll", infiniteScroll);
 
@@ -350,17 +355,21 @@ carousel.addEventListener("mousemove", (e) => {
   if (!isDragging) return;
   e.preventDefault();
   const x = e.pageX;
-  const walk = (x - startX);
+  const walk = x - startX;
   carousel.scrollLeft = startScrollLeft - walk;
 });
 
 // Touch support with Passive: false fix
-carousel.addEventListener("touchstart", (e) => {
-  isDragging = true;
-  carousel.classList.add("dragging");
-  startX = e.touches[0].pageX;
-  startScrollLeft = carousel.scrollLeft;
-}, { passive: false });
+carousel.addEventListener(
+  "touchstart",
+  (e) => {
+    isDragging = true;
+    carousel.classList.add("dragging");
+    startX = e.touches[0].pageX;
+    startScrollLeft = carousel.scrollLeft;
+  },
+  { passive: false }
+);
 
 document.addEventListener("touchend", () => {
   isDragging = false;
@@ -368,15 +377,18 @@ document.addEventListener("touchend", () => {
   snapToNearest();
 });
 
-carousel.addEventListener("touchmove", (e) => {
-  if (!isDragging) return;
-  // We want to prevent default to stop page scrolling while dragging carousel
-  e.preventDefault();
-  const x = e.touches[0].pageX;
-  const walk = (x - startX);
-  carousel.scrollLeft = startScrollLeft - walk;
-}, { passive: false });
-
+carousel.addEventListener(
+  "touchmove",
+  (e) => {
+    if (!isDragging) return;
+    // We want to prevent default to stop page scrolling while dragging carousel
+    e.preventDefault();
+    const x = e.touches[0].pageX;
+    const walk = x - startX;
+    carousel.scrollLeft = startScrollLeft - walk;
+  },
+  { passive: false }
+);
 
 function snapToNearest() {
   // Smooth snap to nearest card stride
@@ -384,7 +396,7 @@ function snapToNearest() {
   const nearestIndex = Math.round(currentScroll / stride);
   carousel.scrollTo({
     left: nearestIndex * stride,
-    behavior: "smooth"
+    behavior: "smooth",
   });
 }
 
